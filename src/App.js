@@ -78,7 +78,6 @@ function App() {
     })
 
     console.log('data que emvio', dataSend)
-    /*
     await axios.post('http://181.143.87.202:7052/next', dataSend)
     .then(res => {
       console.log('res en post', res)
@@ -87,7 +86,6 @@ function App() {
        }
     })
     .catch(err => console.log(err.status))
-    */
   }
 
   return (
