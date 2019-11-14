@@ -41,30 +41,26 @@ function App() {
   const renderGallery = () => {
     return images.map((data, idx) => {
       const { positive, src } = data
-      // const name = data.src.split('/').pop().split('-').shift()
       return (
         <div style={{ display: 'contents' }} key={`${src}_${idx}`}>
           <div className="mb-2 pl-4 w-25">
-              <input
-                type="checkbox"
-                name={src}
-                value={positive}
-                checked={positive}
-                onChange={e => handleChange(e, data.src)}
-              />
-              {/* <span>{`${name} ${idx}`}</span> */}
-            <img className="img-fluid img-thumbnail" src={src} alt={src} />
+            <button onClick={e => handleChangeForClick(e)} className="wrap-button">
+              <div className={!positive ? "wrap-image": ''}>
+                <img className="img-fluid img-thumbnail" src={src} alt={src} />
+              </div>
+            </button>
           </div>
         </div>
       )
     })
   }
 
-  const handleChange = (e, name_image) => {
-    const value = e.target.type === "checkbox" ? e.target.checked : e.target.value
+  const handleChangeForClick = e => {
+    if (e === undefined) return 
+    const target = e.target
     // actualizo un key de un objeto de un array
     setImages(prevState => {
-      return prevState.map(data => data.src === name_image ? { ...data, positive: value } : data)
+      return prevState.map(data => data.src === target.src ? { ...data, positive: !data.positive } : data)
     })
   }
 
@@ -81,6 +77,8 @@ function App() {
       dataSend.push(data)
     })
 
+    console.log('data que emvio', dataSend)
+    /*
     await axios.post('http://181.143.87.202:7052/next', dataSend)
     .then(res => {
       console.log('res en post', res)
@@ -89,23 +87,25 @@ function App() {
        }
     })
     .catch(err => console.log(err.status))
-  };
+    */
+  }
 
   return (
     <div className="container">
       <h5 className="font-weight-light text-center mt-4 mb-0">¿Seleccione si esta imagen corresponde con los parametros seleccionados ?</h5>
       <hr />
-      <form onSubmit={handleFormSubmit} className="row d-flex justify-content-between">
+      <div className="row d-flex justify-content-between">
         {renderGallery()}
         <div className="my-4">
           <button
             type="submit"
             className="btn btn-success float-right"
+            onClick={handleFormSubmit}
           >
             next
           </button>
         </div>
-      </form>
+      </div>
     </div>
   )
 }

@@ -1,0 +1,13 @@
+.wrap-image {
+    padding: 6px;
+    background: tomato;
+    border: 1px solid transparent;
+}
+
+.wrap-button {
+    border: 1px solid transparent;
+    background: transparent;
+    border: none;
+    outline:none !important;
+    color:white;
+}
